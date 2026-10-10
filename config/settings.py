@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-vj58!r1#o4bv#b(^#t*bzlvmgx9o1835n*4_2%2#i(ke*zc!%=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', 'banques.onrender.com', '.onrender.com', 'localhost', '127.0.0.1']
+# Fix Render proxy
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # Application definition
