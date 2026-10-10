@@ -26,13 +26,8 @@ SECRET_KEY = 'django-insecure-vj58!r1#o4bv#b(^#t*bzlvmgx9o1835n*4_2%2#i(ke*zc!%=
 DEBUG = True
 
 ALLOWED_HOSTS = ['*', 'banques.onrender.com', '.onrender.com', 'localhost', '127.0.0.1']
-# Fix Render proxy
-USE_X_FORWARDED_HOST = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,6 +40,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -52,7 +48,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
