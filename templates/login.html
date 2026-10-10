@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block contenus %}
+<body>
+<body>
+
+<header>
+    
+    <a href="/" class="back">← Retour à l'accueil</a>
+</header>
+
+<div class="login-wrapper">
+    <div class="login-card">
+        <div class="icon">🔒</div>
+        <h1>Bon retour parmi nous</h1>
+        <p class="subtitle">Connectez-vous à votre espace sécurisé</p>
+
+        {% if error %}
+        <div class="error-msg">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <label>Email</label>
+            <input type="email" name="email" placeholder="vous@exemple.com" required>
+
+            <label>Mot de passe</label>
+            <input type="password" name="password" placeholder="••••••••" required>
+
+            <div class="row-between">
+                <label class="check"><input type="checkbox"> Se souvenir de moi</label>
+                <a href="#" class="forgot">Mot de passe oublié ?</a>
+            </div>
+
+            <button type="submit" class="btn-primary">Se connecter →</button>
+        </form>
+
+        <p class="no-account">Pas encore client ? <a href="/register/">Ouvrir un compte</a></p>
+
+        <div class="secure">🛡️ Connexion chiffrée 256-bit • Protection anti-fraude 24/7</div>
+    </div>
+
+    <div class="login-info">
+        <h3>Un accès simple et sécurisé</h3>
+        <div class="info-box">
+            <b>⚡ Connexion instantanée</b>
+            <p>Accédez à vos comptes en moins de 2 secondes.</p>
+        </div>
+        <div class="info-box">
+            <b>🛡️ Sécurité maximale</b>
+            <p>Double authentification et cryptage bancaire.</p>
+        </div>
+        <div class="info-box">
+            <b>📱 100% compatible</b>
+            <p>Mobile, tablette, ordinateur, tout est synchronisé.</p>
+        </div>
+        <div class="avis">🔐 +2M connexions sécurisées ce mois</div>
+    </div>
+</div>
+
+</body>
+
+</body>
+
+{% endblock  %}

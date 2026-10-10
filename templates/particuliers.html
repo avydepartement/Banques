@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block contenus %}
+
+<body>
+
+<header class="header">
+    <a href="/" class="back">← Retour à l'accueil</a>
+</header>
+
+<section class="hero">
+    <div>
+        <h1>La banque qui <span>comprend</span> les particuliers</h1>
+        <p>Ouvre ton compte en 5 minutes, reçois ta carte Visa gratuite et gère tout depuis ton dashboard. Sans frais cachés.</p>
+        <div class="hero-actions">
+            <a href="{% url 'dashboard' %}" class="btn-dark">Ouvrir un compte</a>
+            <a href="{% url "offres" %}" class="btn-light">Voir les offres</a>
+        </div>
+        <div style="margin-top:30px;display:flex;gap:20px;font-size:13px;color:#6b7280;">
+            <span>✓ Sans engagement</span>
+            <span>✓ Carte gratuite</span>
+            <span>✓ 2.5% épargne</span>
+        </div>
+    </div>
+
+    <div class="card-hero">
+        <div style="background:white;border-radius:16px;padding:20px;box-shadow:0 5px 20px rgba(0,0,0,.05);">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+                <small style="color:#6b7280;font-weight:700;">COMPTE COURANT</small>
+                <span style="background:#dcfce7;color:#16a34a;padding:4px 8px;border-radius:20px;font-size:11px;font-weight:700;">ACTIF</span>
+            </div>
+            <h2 style="font-size:32px;margin:15px 0;">1 240,50 €</h2>
+            <div style="background:#f3f4f6;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:12px;">
+                <span>↓ Salaire reçu</span><b style="color:#16a34a;">+1 800€</b>
+            </div>
+            <div style="background:#f3f4f6;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:12px;margin-top:8px;">
+                <span>↑ Loyer</span><b>-650€</b>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="offers" id="offres">
+    <div class="offer">
+        <div class="icon" style="background:#dbeafe;">💳</div>
+        <h3>Compte + Carte Visa</h3>
+        <p>Carte Visa gratuite, plafond 1500€, blocage en 1 clic depuis le dashboard. Compatible Apple Pay & Google Pay.</p>
+        <a href="{% url 'dashboard' %}" style="color:#0033A0;font-weight:700;text-decoration:none;font-size:13px;display:block;margin-top:15px;">Ouvrir →</a>
+    </div>
+    <div class="offer">
+        <div class="icon" style="background:#dcfce7;">🐷</div>
+        <h3>Épargne à 2.5%</h3>
+        <p>Ton argent travaille même quand tu dors. Virement instantané entre compte courant et épargne, sans frais.</p>
+        <a href="{% url 'epargne' %}" style="color:#0033A0;font-weight:700;text-decoration:none;font-size:13px;display:block;margin-top:15px;">Épargner →</a>
+    </div>
+    <div class="offer">
+        <div class="icon" style="background:#fef3c7;">⚡</div>
+        <h3>Virements instantanés</h3>
+        <p>Envoie et reçois en 10 secondes, même le dimanche. RIB en PDF, historique complet et export possible.</p>
+        <a href="{% url 'virement' %}" style="color:#0033A0;font-weight:700;text-decoration:none;font-size:13px;display:block;margin-top:15px;">Envoyer →</a>
+    </div>
+</section>
+
+</body>
+
+{% endblock  %}

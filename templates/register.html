@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block contenus %}
+<body>
+
+<header>
+    
+    <a href="/" class="back">← Retour à l'accueil</a>
+</header>
+
+<div class="register-wrapper">
+    <div class="register-card">
+        <div class="steps">
+            <span class="active">1</span>
+            <div class="line active"></div>
+            <span>2</span>
+            <div class="line"></div>
+            <span>3</span>
+        </div>
+
+        <h1>Ouvrez votre compte en 5 min</h1>
+        <p class="subtitle">100% en ligne, sans frais cachés, carte gratuite</p>
+
+        {% if error %}
+        <div class="error-msg">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="grid-2">
+                <div>
+                    <label>Prénom</label>
+                    <input type="text" name="prenom" placeholder="Marie" required>
+                </div>
+                <div>
+                    <label>Nom</label>
+                    <input type="text" name="nom" placeholder="Lambert" required>
+                </div>
+            </div>
+
+            <label>Email</label>
+            <input type="email" name="email" placeholder="vous@exemple.com" required>
+
+            <label>Téléphone</label>
+            <input type="tel" name="telephone" placeholder="+33 ">
+
+            <label>Mot de passe</label>
+            <input type="password" name="password" placeholder="Min. 8 caractères" required>
+
+            <label class="check">
+                <input type="checkbox" required> J'accepte les <a href="#">CGU</a> et la <a href="#">politique de confidentialité</a>
+            </label>
+
+            <button type="submit" class="btn-primary">Créer mon compte →</button>
+        </form>
+
+        <p class="no-account">Déjà client ? <a href="/login/">Se connecter</a></p>
+
+        <div class="secure">🛡️ Données chiffrées • Vérification en 2 min • Assistance 7j/7</div>
+    </div>
+
+    <div class="register-info">
+        <h3>Pourquoi 12 000 clients nous font confiance ?</h3>
+        <div class="info-box">
+            <b>💳 Carte Visa gratuite</b>
+            <p>Paiements et retraits sans frais en zone Euro.</p>
+        </div>
+        <div class="info-box">
+            <b>🔒 Sécurité renforcée</b>
+            <p>Authentification forte + anti-fraude 24/7.</p>
+        </div>
+        <div class="info-box">
+            <b>📈 Épargne 2,5%</b>
+            <p>Faites fructifier votre argent dès 1 €.</p>
+        </div>
+        <div class="avis">⭐⭐⭐⭐⭐ 4.8/5 - 12 430 avis clients</div>
+    </div>
+</div>
+
+</body>
+
+{% endblock  %}

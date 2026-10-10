@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block contenus %}
+<body>
+
+<header>
+    <nav>
+        <a class="active" href="#">Comptes</a>
+        <a href="{% url "virement" %}">Virements</a>
+        <a href="{% url "download_rib" %}">RIB</a>
+        <a href="{% url "epargne" %}">Épargne</a>
+    </nav>
+    <div class="user">
+        <span>{{ request.user.first_name }} {{ request.user.last_name|first }}.</span>
+        <div class="avatar">{{ request.user.first_name|first }}{{ request.user.last_name|first }}</div>
+        <a href="/logout/" class="logout">Déconnexion</a>
+    </div>
+</header>
+
+<div class="dashboard">
+    <h2 class="welcome">Bonjour {{ request.user.first_name }} 👋</h2>
+
+    <div class="top-cards">
+        <div class="card solde">
+            <small>Solde disponible</small>
+            <h2>{% if compte %}{{ compte.solde }}{% else %}0.00{% endif %} €</h2>
+            <span class="up">Compte actif</span>
+            <div class="card-btns" > 
+                <a href="{% url 'virement' %}" class="btn">↑ Envoyer</a>
+                <a href="{% url 'recevoir' %}" class="btn">↓ Recevoir</a>
+                <a href="{% url 'download_rib' %}" class="btn" >RIB</a>
+            </div>
+            
+        </div>
+        <div class="card visa" style="{% if compte.carte_bloquee %}background:#ef4444; color:white;{% endif %}">
+            <small>Carte Visa • • • {{ compte.numero_carte }}</small>
+            {% if compte.carte_bloquee %}
+                <h3 style="color:white;">🔒 CARTE BLOQUÉE</h3>
+                <p>Tous les paiements sont bloqués</p>
+            {% else %}
+                <h3>Plafond: 1 500 € / mois</h3>
+                <div class="progress"><div style="width:42%"></div></div>
+                <p>630 € utilisés ce mois</p>
+            {% endif %}
+        </div>
+        <div class="card epargne">
+            <small>Épargne</small>
+            <h2>{{ compte.epargne }} €</h2>
+            <p>Taux 2,5% - sans plafond</p>
+            <a href="{% url 'epargne' %}">Ajouter →</a>
+        </div>
+    </div>
+
+    <div class="bottom">
+        <div class="transactions">
+            <div class="t-head">
+                <h3>Dernières transactions</h3>
+                <a href="#">Voir tout</a>
+            </div>
+            {% if transactions %}
+                {% for t in transactions %}
+                <div class="t-row">
+                    <span>{{ t.icon }}</span>
+                    <div><b>{{ t.label }}</b><small>{{ t.date|date:"d M - H:i" }}</small></div>
+                    {% if t.type == 'credit' %}
+                    <b class="pos">+{{ t.montant }} €</b>
+                    {% else %}
+                    <b class="neg">-{{ t.montant }} €</b>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="t-row"><span>🎁</span><div><b>Bonus bienvenue</b><small>Aujourd'hui</small></div><b class="pos">+50,00 €</b></div>
+                <div class="t-row"><span>🏦</span><div><b>Ouverture de compte</b><small>Aujourd'hui</small></div><b class="pos">Compte créé</b></div>
+            {% endif %}
+        </div>
+
+        <div class="quick">
+        
+            <h3>Actions rapides</h3>
+            <a href="{% url 'virement' %}"><button>↗ Nouveau virement</button></a>
+    
+            <a href="{% url 'toggle_carte' %}">
+                 {% if compte.carte_bloquee %}
+                      <button style="background:#16a34a; color:white;">🔓 Débloquer ma carte</button>
+                 {% else %}
+                      <button>💳 Bloquer ma carte</button>
+                 {% endif %}
+            </a>
+
+            <a href="{% url 'download_rib' %}"><button>📄 Télécharger RIB</button></a>
+
+            <a href="{% url "support" %}"><button>💬 Contacter support</button></a>
+             
+            <div class="secure">🛡️ Session sécurisée • {{ request.user.email }}</div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+{% endblock  %}

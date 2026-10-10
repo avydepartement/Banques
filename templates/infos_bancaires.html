@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block contenus %}
+<div class="p-6">
+    <h1 class="text-xl font-bold">Informations bancaires</h1>
+    <div class="mt-6 space-y-4">
+        <div class="flex justify-between"><span>Titulaire</span> <b>{{ user.get_full_name}} {{ user.last_name}}</b></div>
+        <div class="flex justify-between"><span>IBAN</span> <b class="font-mono">{{ compte.iban }}</b></div>
+        <div class="flex justify-between"><span>BIC</span> <b>{{compte.bic}}</b></div>
+        <div class="flex justify-between"><span>RIB</span> <b class="font-mono">{{ compte.rib }}</b></div>
+        <div class="flex justify-between"><span>Banque</span> <b>BANQUE SUD</B></div>  
+
+    </div>
+
+</div>
+{% endblock  %}

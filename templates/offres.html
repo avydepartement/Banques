@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block contenus %}
+
+
+<style>
+.offre-page{font-family: 'Inter', sans-serif; background:#fff; color:#0f172a; padding:40px 0 80px}
+.offre-header{text-align:center; max-width:800px; margin:0 auto 50px}
+.offre-header h1{font-size:52px; font-weight:800; letter-spacing:-1px; margin-bottom:12px}
+.offre-header p{color:#64748b; font-size:18px}
+.offres-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:1200px; margin:0 auto; padding:0 24px}
+.card{border:1px solid #e2e8f0; border-radius:16px; padding:28px; background:#fff; display:flex; flex-direction:column; position:relative}
+.card.populaire{border-color:#3b82f6; box-shadow:0 10px 30px rgba(59,130,246,.15); transform:translateY(-4px)}
+.badge{display:inline-block; font-size:12px; font-weight:700; padding:6px 12px; border-radius:20px; margin:0 auto 14px; letter-spacing:.3px}
+.badge.gratuit{background:#f1f5f9; color:#64748b}
+.badge.populaire{background:#3b82f6; color:#fff}
+.badge.premium{background:#0f172a; color:#fff}
+.card h2{font-size:28px; font-weight:800; text-align:center; margin:0}
+.price{text-align:center; margin:18px 0 22px}
+.price strong{font-size:46px; font-weight:900; letter-spacing:-2px}
+.price span{color:#64748b; font-size:16px}
+.features{list-style:none; padding:0; margin:0; flex:1}
+.features li{display:flex; gap:10px; font-size:14.5px; margin-bottom:12px; line-height:1.4}
+.features li::before{content:"✓"; color:#3b82f6; font-weight:800}
+.btn {margin-top:24px; width:100%; padding:14px; border-radius:12px; font-weight:700; font-size:15px; cursor:pointer; border:1.5px solid #e2e8f0; background:#fff; color:#2563eb; transition:.2s}
+.btn :hover{background:#f8fafc}
+.btn.blue{background:#3b82f6; color:#fff; border-color:#3b82f6}
+.btn.blue:hover{background:#2563eb}
+.btn.dark{background:#0f172a; color:#fff; border-color:#0f172a}
+.footer-note{text-align:center; margin-top:36px; color:#64748b; font-size:13.5px; padding:0 20px}
+@media(max-width:900px){.offres-grid{grid-template-columns:1fr} .card.populaire{transform:none} .offre-header h1{font-size:36px}}
+</style>
+
+<header class="header">
+
+    <a href="/" class="back">← Retour à l'accueil</a>
+</header>
+<div class="offre-page">
+  <div class="offre-header">
+    <h1>Découvrir l'offre</h1>
+    <p>Choisissez l'offre qui s'adapte à votre quotidien. Sans engagement, 100% en ligne.</p>
+  </div>
+
+  <div class="offres-grid">
+    <!-- STANDARD -->
+    <div class="card">
+      <span class="badge gratuit">Gratuit</span>
+      <h2>Offre Standard</h2>
+      <div class="price"><strong>0€</strong> <span>/ mois</span></div>
+      <ul class="features">
+        <li>Carte bancaire virtuelle gratuite</li>
+        <li>Paiement en Europe sans frais</li>
+        <li>Application mobile</li>
+        <li>Support par chat</li>
+        <li>Jusqu'à 10 virements / mois</li>
+      </ul>
+      <a href="{% url "register" %}"><button class="btn">Commencer gratuitement</button></a>
+    </div>
+
+    <!-- PLUS -->
+    <div class="card populaire">
+      <span class="badge populaire">Populaire</span>
+      <h2>Offre Plus</h2>
+      <div class="price"><strong>9€</strong> <span>/ mois</span></div>
+      <ul class="features">
+        <li>Carte physique + virtuelle incluse</li>
+        <li>5 retraits gratuits / mois</li>
+        <li>Assurance voyage incluse</li>
+        <li>Catégorisation des dépenses auto</li>
+        <li>Virements illimités</li>
+        <li>Export comptable & API</li>
+      </ul>
+      <a href="{% url "register" %}"><button class="btn blue">Choisir Plus</button></a>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="card">
+      <span class="badge premium">Premium</span>
+      <h2>Offre Premium</h2>
+      <div class="price"><strong>19€</strong> <span>/ mois</span></div>
+      <ul class="features">
+        <li>Carte métal premium</li>
+        <li>Retraits illimités gratuits</li>
+        <li>Assurance voyage & mobile premium</li>
+        <li>Plafonds élevés</li>
+        <li>Support prioritaire 24/7</li>
+        <li>Sous-comptes & espaces dédiés</li>
+        <li>Cashback 1% sur vos achats</li>
+      </ul>
+      <a href="{% url "register" %}"><button class="btn dark">Choisir Premium</button></a>
+    </div>
+  </div>
+
+  <p class="footer-note">Tous les plans incluent : protection Banque Nord • compte 100% sécurisé • sans engagement • résiliation à tout moment</p>
+</div>
+
+
+{% endblock  %}

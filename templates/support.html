@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block contenus %}
+<header class="header">
+
+    <a href="/" class="back">← Retour à l'accueil</a>
+</header>
+
+<div class="wrap">
+    <div class="search">
+        <h1 style="font-size:28px;font-weight:800;">Comment on peut t'aider ?</h1>
+        <p style="color:#6b7280;margin-top:8px;font-size:14px;">Trouve une réponse ou contacte notre équipe (réponse en < 2h)</p>
+        <input type="text" id="searchFaq" placeholder="🔍 Ex: carte bloquée, RIB, virement..." onkeyup="filterFaq()">
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <div style="font-size:24px;">💳</div>
+            <b style="font-size:14px;margin-top:8px;display:block;">Carte & Plafond</b>
+            <p style="font-size:12px;color:#6b7280;margin-top:4px;">Bloquer, débloquer, augmenter plafond</p>
+        </div>
+        <div class="card">
+            <div style="font-size:24px;">↗</div>
+            <b style="font-size:14px;margin-top:8px;display:block;">Virements</b>
+            <p style="font-size:12px;color:#6b7280;margin-top:4px;">Délais, virement instantané, RIB</p>
+        </div>
+        <div class="card">
+            <div style="font-size:24px;">🔒</div>
+            <b style="font-size:14px;margin-top:8px;display:block;">Sécurité</b>
+            <p style="font-size:12px;color:#6b7280;margin-top:4px;">Mot de passe, fraude, 2FA</p>
+        </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1.8fr 1fr;gap:24px;margin-top:24px;" class="faq-wrap">
+        <div class="faq" id="faqList">
+            <h3 style="margin-bottom:10px;">Questions fréquentes</h3>
+            
+            <div class="faq-item">
+                <b>💳 Comment bloquer ma carte ?</b>
+                <p>Va dans Dashboard → Carte Visa → clique sur "Bloquer". C'est instantané. Tu peux la débloquer pareil.</p>
+            </div>
+            <div class="faq-item">
+                <b>📄 Où télécharger mon RIB ?</b>
+                <p>Dashboard → bouton "RIB" ou page Actions rapides → Télécharger RIB (PDF). Ton IBAN : {{ request.user.compte.iban|default:"FR76..." }}</p>
+            </div>
+            <div class="faq-item">
+                <b>↗ Mon virement n'arrive pas ?</b>
+                <p>Les virements SEPA prennent 24h ouvrées. Les virements instantanés BANQUE SUD → BANQUE SUD sont immédiats.</p>
+            </div>
+            <div class="faq-item">
+                <b>↓ Comment recevoir de l'argent ?</b>
+                <p>Partage ton IBAN depuis Dashboard → RIB, ou utilise le bouton "↓ Recevoir" pour simuler un virement entrant.</p>
+            </div>
+            <div class="faq-item">
+                <b>🐷 Comment fonctionne l'épargne 2.5% ?</b>
+                <p>Ton épargne est crédité automatiquement chaque fin de mois. Tu peux retirer à tout moment sans frais.</p>
+            </div>
+        </div>
+
+        <div class="faq">
+            <h3>Contacter le support</h3>
+            <p style="font-size:12px;color:#6b7280;margin-top:6px;">Réponse moyenne : 47 min</p>
+            
+            {% if messages %}
+                {% for m in messages %}
+                    <div style="background:#dcfce7;padding:10px;border-radius:10px;font-size:13px;margin-top:12px;color:#166534;">{{ m }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" class="form">
+                {% csrf_token %}
+                <select name="sujet" required>
+                    <option value="">Choisis un sujet</option>
+                    <option value="carte">Carte bancaire</option>
+                    <option value="virement">Virement</option>
+                    <option value="rib">RIB / IBAN</option>
+                    <option value="epargne">Épargne</option>
+                    <option value="autre">Autre</option>
+                </select>
+                <input type="text" name="objet" placeholder="Objet" required>
+                <textarea name="message" rows="4" placeholder="Décris ton problème..." required></textarea>
+                <button type="submit">Envoyer ma demande →</button>
+            </form>
+
+            <div style="margin-top:20px;padding:12px;background:#f6f7fb;border-radius:10px;font-size:12px;">
+                <b>📞 Besoin urgent ?</b><br>
+                +33 07 XX XX XX<br>
+                Lun-Ven 8h-18h
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function filterFaq(){
+    let q = document.getElementById('searchFaq').value.toLowerCase();
+    document.querySelectorAll('.faq-item').forEach(el=>{
+        el.style.display = el.innerText.toLowerCase().includes(q) ? 'block' : 'none';
+    });
+}
+</script>
+
+</body>
+{% endblock  %}

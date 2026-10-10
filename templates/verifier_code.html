@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block contenus %}
+
+<title>Suivi virement {{ virement.reference }}</title>
+<style>
+.box{background:white;border-radius:24px;padding:32px;max-width:480px;width:100%;box-shadow:0 20px 50px rgba(0,0,0,.08)}
+.progress-bg{background:#e5e7eb;height:10px;border-radius:20px;overflow:hidden;margin:20px 0}
+.progress-bar{height:100%;background:linear-gradient(90deg,#0033A0,#00d1ff);transition:.5s}
+.step{display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:#9ca3af;margin-bottom:10px}
+.step .active{color:#0033A0}
+input{width:100%;padding:14px;border:1.5px solid #e5e7eb;border-radius:12px;font-size:22px;letter-spacing:8px;text-align:center;font-weight:800}
+.btn{width:100%;background:#0033A0;color:white;border:none;padding:14px;border-radius:12px;font-weight:800;margin-top:14px;cursor:pointer}
+.err{background:#fee2e2;color:#991b1b;padding:10px;border-radius:10px;font-size:13px;margin-bottom:10px;text-align:center}
+.info{background:#f9fafb;border:1px solid #eee;padding:12px;border-radius:12px;font-size:12px;margin-top:16px}
+</style>
+</head>
+<body>
+
+    <div class="header">
+    <a href="{% url 'dashboard' %}" style="text-decoration:none;color:#0033A0;font-weight:700;font-size:14px;">← Dashboard</a>
+    </div>
+
+<div class="box">
+    <h2 style="text-align:center;font-weight:800;">Virement {{ virement.reference }}</h2>
+    <p style="text-align:center;font-size:13px;color:#6b7280;margin-top:6px;">{{ virement.montant }}€ vers {{ virement.nom_beneficiaire }}<br>{{ virement.iban_dest }}</p>
+
+    <div class="progress-bg"><div class="progress-bar" style="width:{{ virement.progression }}%"></div></div>
+    <div class="step">
+        <span class="{% if virement.progression >= 0 %}active{% endif %}">0%</span>
+        <span class="{% if virement.progression >= 50 %}active{% endif %}">50%</span>
+        <span class="{% if virement.progression >= 90 %}active{% endif %}">90%</span>
+        <span class="{% if virement.progression >= 100 %}active{% endif %}">100%</span>
+    </div>
+
+    {% if error %}<div class="err">{{ error }}</div>{% endif %}
+
+    {% if virement.statut != 'termine' %}
+    <form method="POST">
+        {% csrf_token %}
+        {% if virement.progression == 0 %}
+            <p style="font-size:13px;font-weight:700;margin-bottom:8px;">🔐 Code pour passer à 50% requis</p>
+        {% elif virement.progression == 50 %}
+            <p style="font-size:13px;font-weight:700;margin-bottom:8px;">🔐 Code pour passer à 90% requis</p>
+        {% else %}
+            <p style="font-size:13px;font-weight:700;margin-bottom:8px;">🔐 Dernier code pour finaliser à 100%</p>
+        {% endif %}
+        <input type="text" name="code" maxlength="6" placeholder="••••••" required>
+        <button class="btn">Valider le code →</button>
+    </form>
+    <div class="info">
+        📞 <b>Contacte la Banque pour le code.</b><br>
+        Progression actuelle: <b>{{ virement.progression }}%</b><br>
+        Statut: {{ virement.get_statut_display }}<br><br>
+        Réf: {{ virement.reference }}<br>
+        <i style="color:#9ca3af;">(Contactez la Banque pour le code /Banque/)</i>
+    </div>
+    {% else %}
+        <div style="text-align:center;padding:20px;background:#dcfce7;border-radius:12px;color:#166534;font-weight:700;">✅ Virement terminé à 100% !</div>
+        <a href="{% url 'mes_virements' %}" class="btn" style="display:block;text-align:center;text-decoration:none;">Voir mes virements</a>
+    {% endif %}
+</div>
+</body>
+
+{% endblock  %}

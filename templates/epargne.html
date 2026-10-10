@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block contenus %}
+
+<title>Épargne - BANQUE SUD</title>
+<style>
+body{font-family:Inter,sans-serif;background:#f6f7fb;margin:0}
+header{background:white;padding:15px 30px;display:flex;justify-content:space-between;border-bottom:1px solid #eee}
+.epargne-box{max-width:900px;margin:30px auto;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.card-e{background:white;border-radius:20px;padding:25px;box-shadow:0 5px 15px rgba(0,0,0,.05)}
+.big{font-size:32px;font-weight:800;margin:10px 0}
+.btn{width:100%;padding:12px;border:0;border-radius:10px;font-weight:700;cursor:pointer;margin-top:10px}
+.btn-blue{background:#0033A0;color:white}
+.btn-white{background:#f3f4f6}
+input{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin:8px 0}
+.success{background:#dcfce7;color:#166534;padding:10px;border-radius:8px;text-align:center;margin-bottom:10px}
+.error{background:#fef2f2;color:#b91c1c;padding:10px;border-radius:8px;text-align:center;margin-bottom:10px}
+</style>
+</head>
+<body>
+
+<header>
+    <div>🛡️ <b>BANQUE SUD - Épargne 2.5%</b></div>
+    <a href="/dashboard/" style="color:#0033A0;font-weight:600;text-decoration:none;">← Dashboard</a>
+</header>
+
+<div style="max-width:900px;margin:20px auto;">
+{% if message %}<div class="success">{{ message }}</div>{% endif %}
+{% if error %}<div class="error">{{ error }}</div>{% endif %}
+</div>
+
+<div class="epargne-box">
+    <div class="card-e">
+        <small>Compte courant</small>
+        <div class="big">{{ compte.solde }} €</div>
+        <p style="color:#6b7280;font-size:13px;">Disponible pour épargner</p>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="depot">
+            <input type="number" step="0.01" name="montant" placeholder="Ex: 100" required>
+            <button class="btn btn-blue">🐷 Ajouter à l'épargne →</button>
+        </form>
+    </div>
+
+    <div class="card-e" style="background:#0033A0;color:white;">
+        <small style="opacity:0.7;">Épargne totale</small>
+        <div class="big">{{ compte.epargne }} €</div>
+        <p style="opacity:0.7;font-size:13px;">Taux 2,5% - intérêts crédités chaque mois</p>
+        <p style="opacity:0.9;font-size:12px;margin-top:15px;">💡 Tu gagnes ~ {{ compte.epargne|default:0 }}€ x 2.5% = 
+            <b>{% widthratio compte.epargne 1 0.025 %} € / an</b>
+        </p>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="retrait">
+            <input type="number" step="0.01" name="montant" placeholder="Ex: 50" required style="color:black;">
+            <button class="btn" style="background:white;color:#0033A0;">Retirer vers compte courant</button>
+        </form>
+    </div>
+</div>
+
+</body>
+{% endblock  %}

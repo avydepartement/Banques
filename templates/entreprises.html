@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block contenus %}
+
+<body>
+
+    <a href="/" class="back">← Retour à l'accueil</a>
+
+    <a href="{% url 'dashboard' %}" class="btn-black">Ouvrir compte pro →</a>
+</header>
+
+<section class="hero">
+    <div>
+        <span style="background:#fef3c7;color:#92400e;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:800;letter-spacing:0.5px;">RECOMMANDÉ PAR 12 000 ENTREPRISES</span>
+        <h1 style="margin-top:18px;">La banque qui <span>scale</span> ton business.</h1>
+        <p>IBAN français, cartes team, virements illimités, export compta. Gère ta trésorerie 10x plus vite qu'en banque traditionnelle.</p>
+        <div style="display:flex;gap:12px;margin-top:28px;">
+            <a href="{% url 'dashboard' %}" class="btn-black" style="padding:14px 24px;border-radius:12px;">Créer compte pro - Gratuit</a>
+            <a href="#tarifs" style="background:#f3f4f6;color:#111;padding:14px 24px;border-radius:12px;text-decoration:none;font-weight:700;font-size:14px;">Voir tarifs</a>
+        </div>
+        <div class="hero-list">
+            <span>✓ IBAN FR76 en 5min</span>
+            <span>✓ 10 cartes Visa</span>
+            <span>✓ Support PRO 24/7</span>
+        </div>
+    </div>
+
+    <div class="hero-card">
+        <div class="hero-card-top">
+            <small style="opacity:0.6;letter-spacing:1px;font-weight:700;font-size:11px;">COMPTE PRO • SARL ATLANTIQUE</small>
+            <span class="badge-pro">PRO</span>
+        </div>
+        <h2 style="font-size:38px;font-weight:900;">42 890,00 €</h2>
+        <p style="font-size:12px;opacity:0.6;margin-top:4px;">Trésorerie disponible</p>
+        
+        <div style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div style="background:#1f1f1f;padding:14px;border-radius:12px;"><small style="opacity:0.5;font-size:11px;">ENTRÉES MOIS</small><div style="font-weight:800;margin-top:4px;color:#4ade80;">+ 18 500€</div></div>
+            <div style="background:#1f1f1f;padding:14px;border-radius:12px;"><small style="opacity:0.5;font-size:11px;">SORTIES MOIS</small><div style="font-weight:800;margin-top:4px;color:#f87171;">- 8 210€</div></div>
+        </div>
+
+        <div style="margin-top:20px;">
+            <div style="display:flex;justify-content:space-between;font-size:11px;opacity:0.6;"><span>Objectif 50K</span><span>75%</span></div>
+            <div class="progress"><div class="progress-bar"></div></div>
+        </div>
+    </div>
+</section>
+
+<section class="featuress">
+    <div class="feature">
+        <div class="feature-icon" style="background:#111;color:white;">🏦</div>
+        <h3>IBAN FR dédié + RIB PRO</h3>
+        <p>Vrai compte pro FR76, BIC, prélèvements SEPA, virements instantanés vers toutes banques.</p>
+        <a href="{% url 'dashboard' %}">Obtenir mon IBAN →</a>
+    </div>
+    <div class="feature">
+        <div class="feature-icon" style="background:#f3f4f6;">👥</div>
+        <h3>Cartes Team illimitées</h3>
+        <p>Crée 10 cartes Visa pour ton équipe. Définis les plafonds, bloque en 1 clic, suis les dépenses live.</p>
+        <a href="{% url 'dashboard' %}">Créer une carte →</a>
+    </div>
+    <div class="feature">
+        <div class="feature-icon" style="background:#fef3c7;">📊</div>
+        <h3>Compta simplifiée</h3>
+        <p>Export CSV, catégories auto, justificatifs par photo. Connecte ton comptable ou Pennylane.</p>
+        <a href="{% url 'aide' %}">Voir comment →</a>
+    </div>
+</section>
+
+<section class="pricing" id="tarifs">
+    <div style="text-align:center;margin-bottom:40px;">
+        <h2 style="font-size:32px;font-weight:900;">Tarifs simples, sans surprise.</h2>
+        <p style="color:#6b7280;margin-top:8px;">0€ de frais cachés. Résiliable en 1 clic.</p>
+    </div>
+    <div class="pricing-inner">
+        <div class="price-card">
+            <h4>STARTER</h4>
+            <div class="price">0€<span style="font-size:14px;color:#6b7280;">/mois</span></div>
+            <ul>
+                <li>1 IBAN FR76</li>
+                <li>1 carte Visa</li>
+                <li>20 virements/mois</li>
+                <li>Support chat</li>
+            </ul>
+        </div>
+        <div class="price-card pro">
+            <h4>PRO • LE PLUS CHOISI</h4>
+            <div class="price">19€<span style="font-size:14px;color:#6b7280;">/mois</span></div>
+            <ul>
+                <li>3 IBAN FR76</li>
+                <li>10 cartes Visa Team</li>
+                <li>Virements illimités</li>
+                <li>Support PRO 24/7 + Compta</li>
+            </ul>
+            <a href="{% url 'dashboard' %}" class="btn-black" style="display:block;text-align:center;margin-top:20px;padding:12px;border-radius:10px;">Choisir PRO</a>
+        </div>
+        <div class="price-card">
+            <h4>BUSINESS</h4>
+            <div class="price">49€<span style="font-size:14px;color:#6b7280;">/mois</span></div>
+            <ul>
+                <li>10 IBAN FR76</li>
+                <li>50 cartes Visa</li>
+                <li>API + Accès comptable</li>
+                <li>Manager dédié</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+</body>
+
+{% endblock  %}

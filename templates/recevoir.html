@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block contenus %}
+
+<body>
+
+<div class="container">
+    <a href="{% url 'dashboard' %}" class="back-link">← Retour au dashboard</a>
+    
+    <div class="icon-box">↓</div>
+    
+    <h2 class="title">Recevoir de l'argent</h2>
+    <p class="subtitle">Simule un virement entrant pour tester</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label>Montant à recevoir</label>
+            <input type="number" step="0.01" name="montant" placeholder="Ex: 250" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Nom de l'expéditeur</label>
+            <input type="text" name="expediteur" placeholder="Ex: Papa, Salaire, Client" value="Virement reçu">
+        </div>
+
+        <button type="submit" class="btn-recevoir">↓ Créditer mon compte</button>
+    </form>
+
+    <div class="info-box">
+        <div class="info-title">MES INFOS À PARTAGER</div>
+        <div class="info-content">
+            Solde actuel: <b>{{ compte.solde }} €</b><br>
+            IBAN: <b>{{ compte.iban }}</b><br>
+            BIC: <b>{{ compte.bic }}</b>
+        </div>
+    </div>
+</div>
+
+</body>
+
+{% endblock  %}

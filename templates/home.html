@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block contenus %}
+<section class="hero">
+    <div class="hero-text">
+        <h1>La banque simple.<br>Transparente. À vos côtés.</h1>
+        <p>Compte courant, carte et épargne — sans frais cachés.<br>Ouvrez votre compte en 5 minutes, 100% en ligne.</p>
+        <div class="hero-btns">
+            <a href="{% url "register" %}" class="btn-primary">Ouvrir un compte</a>
+            <a href="{% url "offres" %}" class="btn-secondary">Découvrir l'offre</a>
+        </div>
+        <div class="checks">
+            <span>✓ Sans frais de tenue de compte</span>
+            <span>✓ Sécurisé & conforme</span>
+            <span>✓ Assistance 7j/7</span>
+        </div>
+    </div>
+
+    <div class="hero-phone">
+        <div class="phone-card">
+            <div class="solde-box">
+                <small>Solde disponible</small>
+                <b>2 847,32 €</b>
+            </div>
+            <div class="phone-actions">
+                <button>↗ Envoyer</button>
+                <button>↻ Recevoir</button>
+            </div>
+            <div class="transactions">
+                <div><span>☕ Café - -4,50 € - Aujourd'hui</span></div>
+                <div><span>↓ Salaire - +2 400,00 € - 01 sept</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <h2>Une banque pensée pour simplifier votre quotidien</h2>
+    <div class="grid-3">
+        <div class="feature-card">
+            <div class="icon">🛡️</div>
+            <h3>Sécurité renforcée</h3>
+            <p>Authentification forte et données protégées selon les standards bancaires.</p>
+        </div>
+        <div class="feature-card">
+            <div class="icon">💳</div>
+            <h3>Carte Visa gratuite</h3>
+            <p>Paiements et retraits sans frais en zone Euro.</p>
+        </div>
+        <div class="feature-card">
+            <div class="icon">🐖</div>
+            <h3>Épargne flexible</h3>
+            <p>Épargnez à votre rythme, virements automatiques inclus.</p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

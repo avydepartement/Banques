@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block contenus %}
+
+<title>Mes virements</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
+body{background:#f6f7fb;padding:20px}
+.container{max-width:700px;margin:0 auto}
+.card{background:white;border-radius:20px;padding:20px;margin-bottom:16px;box-shadow:0 4px 20px rgba(0,0,0,.05)}
+.top{display:flex;justify-content:space-between;align-items:center}
+.ref{font-weight:800;font-size:14px}
+.montant{font-weight:800;font-size:16px;color:#0033A0}
+.progress-bg{background:#e5e7eb;height:8px;border-radius:20px;overflow:hidden;margin:12px 0}
+.progress-bar{height:100%;background:linear-gradient(90deg,#0033A0,#00d1ff);transition:.5s}
+.infos{font-size:12px;color:#6b7280;line-height:1.5}
+.badge{display:inline-block;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800;margin-top:8px}
+.badge-0{background:#fef3c7;color:#92400e}
+.badge-50{background:#dbeafe;color:#1e40af}
+.badge-90{background:#e0e7ff;color:#3730a3}
+.badge-100{background:#dcfce7;color:#166534}
+.btn{display:inline-block;margin-top:12px;background:#0033A0;color:white;padding:10px 16px;border-radius:10px;text-decoration:none;font-weight:700;font-size:13px;text-align:center}
+.btn:hover{background:#002277}
+</style>
+</head>
+<body>
+
+    <div class="header">
+    <a href="{% url 'dashboard' %}" style="text-decoration:none;color:#0033A0;font-weight:700;font-size:14px;">← Dashboard</a>
+    </div>
+
+<div class="container">
+    <h2 style="font-weight:800;margin-bottom:20px;">📋 Mes virements</h2>
+    <a href="{% url 'virement' %}" style="display:inline-block;margin-bottom:20px;background:white;padding:10px 16px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid #e5e7eb;">← Nouveau virement</a>
+
+    {% for v in virements %}
+    <div class="card">
+        <div class="top">
+            <span class="ref">{{ v.reference }}</span>
+            <span class="montant">{{ v.montant }}€</span>
+        </div>
+        <div class="infos">
+            Vers {{ v.nom_beneficiaire }} - {{ v.iban_dest }}<br>
+            Le {{ v.date_creation|date:"d/m/Y H:i" }}
+        </div>
+
+        <div class="progress-bg"><div class="progress-bar" style="width:{{ v.progression }}%"></div></div>
+        
+        {% if v.progression == 0 %}<span class="badge badge-0">0% - En attente code 1</span>
+        {% elif v.progression == 50 %}<span class="badge badge-50">50% - En attente code 2</span>
+        {% elif v.progression == 90 %}<span class="badge badge-90">90% - Dernier code</span>
+        {% else %}<span class="badge badge-100">100% - TERMINÉ ✅</span>
+        {% endif %}
+
+        {% if v.progression < 100 %}
+            <br>
+            <a class="btn" href="{% url 'verifier_code_virement_id' v.id %}">🔐 Reprendre → Entrer le code ({{ v.progression }}% → {% if v.progression == 0 %}50%{% elif v.progression == 50 %}90%{% else %}100%{% endif %})</a>
+        {% endif %}
+    </div>
+    {% empty %}
+    <div class="card" style="text-align:center;color:#9ca3af;">Aucun virement pour le moment</div>
+    {% endfor %}
+</div>
+</body>
+
+{% endblock  %}

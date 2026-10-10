@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block contenus %}
+
+
+<title>Virement par IBAN - BANQUE SUD</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
+body{background:#f6f7fb}
+.header{background:white;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee}
+.logo{font-weight:800;color:#0033A0}
+.card{max-width:560px;margin:40px auto;background:white;border-radius:20px;padding:32px;box-shadow:0 10px 30px rgba(0,0,0,.06)}
+.card h1{font-size:22px;font-weight:800}
+.card .sub{color:#6b7280;font-size:13px;margin:8px 0 20px}
+.solde{background:#f3f4f6;padding:12px;border-radius:12px;text-align:center;font-size:13px;margin-bottom:20px}
+label{font-size:13px;font-weight:700;display:block;margin:14px 0 6px}
+input{width:100%;padding:13px 14px;border:1.5px solid #e5e7eb;border-radius:12px;font-size:14px;outline:none;transition:.2s}
+input:focus{border-color:#0033A0;box-shadow:0 0 0 4px #dbeafe}
+.input-iban{text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.btn{width:100%;background:#0033A0;color:white;border:none;padding:14px;border-radius:12px;font-weight:800;margin-top:22px;cursor:pointer;font-size:14px}
+.btn:hover{background:#002277}
+.msg-ok{background:#dcfce7;color:#166534;padding:12px;border-radius:10px;font-size:13px;margin-bottom:14px;text-align:center;font-weight:600}
+.msg-err{background:#fef2f2;color:#b91c1c;padding:12px;border-radius:10px;font-size:13px;margin-bottom:14px;text-align:center;font-weight:600}
+.info{margin-top:16px;background:#eff6ff;padding:10px;border-radius:10px;font-size:11px;color:#1e40af;line-height:16px}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <a href="{% url 'dashboard' %}" style="text-decoration:none;color:#0033A0;font-weight:700;font-size:14px;">← Dashboard</a>
+</div>
+
+<div class="card">
+    <h1>Virement par IBAN</h1>
+    <p class="sub">Virement SEPA instantané vers une autre banque</p>
+
+    <div class="solde">Solde disponible : <b>{{ compte.solde }} €</b> | Ton IBAN : <b>{{ compte.iban }}</b></div>
+    <div style="text-align:center;margin-bottom:15px;">
+    <a href="{% url 'mes_virements' %}" style="font-size:13px;color:#0033A0;font-weight:700;text-decoration:none;">📋 Voir mes virements →</a>
+    </div>
+
+    {% if message %}<div class="msg-ok">{{ message }}</div>{% endif %}
+    {% if error %}<div class="msg-err">{{ error }}</div>{% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        <label>IBAN du bénéficiaire *</label>
+        <input type="text" name="iban_dest" class="input-iban" placeholder="FR76 3000 1007 94..." required maxlength="34">
+
+        <label>Nom du bénéficiaire *</label>
+        <input type="text" name="nom_beneficiaire" placeholder="Ex: Jean Dupont" required>
+
+        <label>Montant (€) *</label>
+        <input type="number" step="0.01" min="0.01" name="montant" placeholder="100.00" required>
+
+        <label>Motif</label>
+        <input type="text" name="motif" placeholder="Loyer, remboursement...">
+
+        <button type="submit" class="btn">Confirmer le virement →</button>
+
+        <div class="info">
+            🔒 Virement sécurisé. Vérifie bien l'IBAN avant d'envoyer, un virement SEPA est irréversible.
+        </div>
+    </form>
+</div>
+
+<script>
+// Auto-format IBAN en majuscule
+document.querySelector('.input-iban').addEventListener('input', function(e){
+    e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+});
+</script>
+
+</body>
+
+
+{% endblock  %}

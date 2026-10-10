@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block contenus %}
+
+<body>
+
+<header class="header">
+    <a href="/" class="back">← Retour à l'accueil</a>
+</header>
+
+<div class="layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <h4>DÉMARRER</h4>
+        <a href="{% url "register" %}" class="active">Créer son compte</a>
+        <a href="#carte">Activer sa carte</a>
+        <a href="#rib">Trouver son RIB</a>
+        
+        <h4>OPÉRATIONS</h4>
+        <a href="{% url "virement" %}">Faire un virement</a>
+        <a href="#recevoir">Recevoir de l'argent</a>
+        <a href="{% url "epargne" %}">Gérer son épargne</a>
+        
+        <h4>SÉCURITÉ</h4>
+        <a href="#bloquer">Bloquer sa carte</a>
+        
+        
+        <h4 style="margin-top:30px;"><a href="{% url 'support' %}" style="background:#111;color:white;text-align:center;padding:12px;">💬 Contacter le support</a></h4>
+    </aside>
+
+    <!-- CONTENU -->
+    <main class="content">
+        <span class="badge">CENTRE D'AIDE • Mis à jour aujourd'hui</span>
+        <h1 style="font-size:32px;font-weight:800;margin:12px 0 10px;">Comment utiliser BANQUE SUD ?</h1>
+        <p style="color:#6b7280;font-size:14px;">Tout ce que tu dois savoir, en 2 minutes par sujet.</p>
+
+        <!-- SECTION 1 -->
+        <div id="compte" class="card">
+            <h3>1. Créer son compte</h3>
+            <div class="step"><div class="num">1</div><div><b>Inscription</b><br><span style="font-size:13px;color:#6b7280;">Va sur Accueil → Créer mon compte gratuit. Email + mot de passe.</span></div></div>
+            <div class="step"><div class="num">2</div><div><b>Validation</b><br><span style="font-size:13px;color:#6b7280;">Ton compte est actif immédiatement avec IBAN FR76...</span></div></div>
+            <div class="step"><div class="num">3</div><div><b>Dashboard</b><br><span style="font-size:13px;color:#6b7280;">Tu arrives sur ton dashboard avec solde 0€, épargne 0€ et carte Visa.</span></div></div>
+        </div>
+
+        <div id="virement" class="card">
+            <h3>↗ Comment faire un virement ?</h3>
+            <p style="font-size:13px;color:#6b7280;margin-top:8px;">Dashboard → Envoyer → IBAN destinataire → Montant → Valider. Débité instantanément.</p>
+            <div style="background:white;border-radius:10px;padding:12px;margin-top:12px;font-size:12px;border:1px dashed #ddd;">
+                <b>Code:</b> <code>compte.solde -= montant</code> + création Transaction type='debit'
+            </div>
+        </div>
+
+        <div id="recevoir" class="card">
+            <h3>↓ Comment recevoir de l'argent ?</h3>
+            <p style="font-size:13px;color:#6b7280;margin-top:8px;">2 façons :</p>
+            <div class="step"><div class="num">A</div><div><b>Partage ton RIB</b><br><span style="font-size:13px;color:#6b7280;">Dashboard → RIB → Télécharger PDF → Envoie à la personne.</span></div></div>
+            <div class="step"><div class="num">B</div><div><b>Bouton Recevoir (test)</b><br><span style="font-size:13px;color:#6b7280;">Dashboard → ↓ Recevoir → Saisis montant + expéditeur → Créditer.</span></div></div>
+        </div>
+
+        <div id="carte" class="card">
+            <h3>💳 Carte Visa</h3>
+            <p style="font-size:13px;color:#6b7280;margin-top:8px;">Plafond 1500€/mois. Blocage en 1 clic. Déblocage instantané. Numéro visible dans dashboard.</p>
+            <a href="{% url 'dashboard' %}" style="display:inline-block;margin-top:10px;background:#0033A0;color:white;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:12px;font-weight:700;">Gérer ma carte →</a>
+        </div>
+
+        <div id="epargne" class="card">
+            <h3>🐷 Épargne 2.5%</h3>
+            <p style="font-size:13px;color:#6b7280;margin-top:8px;">Transfert libre entre compte courant et épargne. Intérêts calculés chaque fin de mois.</p>
+        </div>
+
+        <div id="bloquer" class="card" style="border-left:4px solid #ef4444;">
+            <h3>🔒 Urgence : bloquer ma carte</h3>
+            <p style="font-size:13px;color:#6b7280;margin-top:8px;">Si tu perds ta carte : Dashboard → Carte → Bloquer. Ou appelle +229 01 XX XX XX (24/7).</p>
+        </div>
+
+        <div style="margin-top:30px;padding:20px;background:#111;color:white;border-radius:16px;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+                <b>Tu n'as pas trouvé ?</b>
+                <p style="font-size:12px;opacity:0.7;margin-top:4px;">Notre équipe répond en 47 min en moyenne</p>
+            </div>
+            <a href="{% url 'support' %}" style="background:white;color:black;padding:10px 18px;border-radius:10px;text-decoration:none;font-weight:700;font-size:13px;">Contacter support →</a>
+        </div>
+
+    </main>
+</div>
+
+</body>
+
+{% endblock  %}
